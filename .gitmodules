@@ -1,0 +1,3 @@
+[submodule "submodules/number-to-binary"]
+	path = submodules/number-to-binary
+	url = https://github.com/cyberang3l/number-to-binary.git
