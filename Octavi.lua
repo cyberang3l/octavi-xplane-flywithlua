@@ -47,17 +47,17 @@ end
 
 function ChangeFreqs()
   --[[ USB Report Structure:
-	Byte order: big endian
+  Byte order: big endian
 
-	VAR/BYTE    DESC
-	b0          Report ID (always 11)
-	b1-b3       Buttons (big endian)
+  VAR/BYTE    DESC
+  b0          Report ID (always 11)
+  b1-b3       Buttons (big endian)
   b4          Doesn't seem to be used for anything
-	b5          Large knob (coarse)
-	b6          Small knob (fine)
-	b7          State
+  b5          Large knob (coarse)
+  b6          Small knob (fine)
+  b7          State
 
-	]]
+  ]]
   --
   local nov, b0, b1, b2, b3, b4, b5, b6, b7 = hid_read(first_HID_dev, bytes_to_read)
 
