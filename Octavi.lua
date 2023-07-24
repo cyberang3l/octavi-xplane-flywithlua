@@ -59,8 +59,7 @@ function ChangeFreqs()
 
 	]]
   --
-  -----a   b   c   d   e   f   g   h
-  local nov, b0, b1, b2, b3, b4, b5, b6, b7, discard = hid_read(first_HID_dev, bytes_to_read)
+  local nov, b0, b1, b2, b3, b4, b5, b6, b7 = hid_read(first_HID_dev, bytes_to_read)
 
   -- if number of values (nov) received > 0, enter loop
   if nov > 0 then
