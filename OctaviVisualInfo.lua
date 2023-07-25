@@ -21,7 +21,7 @@ end
 
 do_every_frame("OctaviInfoEventHandler()")
 
-function PrintButtonSnifferSesult()
+function DrawOctaviState()
   if OctaviInfoActive then
     glColor4f(0, 0, 0, 255)
     draw_string_Helvetica_18(50 - 2, SCREEN_HIGHT - 100 - 2, info_string)
@@ -44,5 +44,5 @@ function PrintButtonSnifferSesult()
   end
 end
 
-do_every_draw("PrintButtonSnifferSesult()")
+do_every_draw("DrawOctaviState()")
 add_macro("Show OCTAVI Info", "OctaviInfoActive = true", "OctaviInfoActive = false", "activate")
