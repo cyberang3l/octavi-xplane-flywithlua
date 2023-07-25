@@ -80,7 +80,7 @@ end
 --- https://developer.x-plane.com/article/accessing-the-x-plane-autopilot-from-datarefs/
 ---
 --- @param ap_state number -- pass the dataref_table("sim/cockpit/autopilot/autopilot_state")[0] value
---- @param approach_status number -- pass the APPROACH_STATUS variable
+--- @param approach_status number -- pass the APPROACH_STATUS variable (dataref("APPROACH_STATUS", "sim/cockpit2/autopilot/approach_status"))
 function GetLEDActivationValue(ap_state, approach_status)
   local led_register_value = 0
   -- For the classic Cessna 172 (no glass cockpit), when AP

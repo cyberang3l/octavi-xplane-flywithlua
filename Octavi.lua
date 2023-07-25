@@ -25,7 +25,8 @@ local function calc_new_xpdr_code(code, incr_coarse, incr_fine)
   return DecToOct(dec_code)
 end
 
-ActiveFunction = FunctionID.COM1
+IsOctaviConnected = false
+ActiveFunction = FunctionID.INIT
 IsPrimaryMode = true
 local bytes_to_read = 8
 local last_buttons = ButtonsInit
@@ -42,6 +43,7 @@ end
 if first_HID_dev == nil then
   print("Cannot find Octavi device!")
 else
+  IsOctaviConnected = true
   hid_set_nonblocking(first_HID_dev, 1)
 end
 
@@ -59,7 +61,10 @@ function ChangeFreqs()
 
   ]]
   --
-  local nov, b0, b1, b2, b3, b4, b5, b6, b7 = hid_read(first_HID_dev, bytes_to_read)
+  local nov, b0, b1, b2, b3, b4, b5, b6, b7 = 0, 0, 0, 0, 0, 0, 0, 0, 0
+  if IsOctaviConnected then
+    nov, b0, b1, b2, b3, b4, b5, b6, b7 = hid_read(first_HID_dev, bytes_to_read)
+  end
 
   -- if number of values (nov) received > 0, enter loop
   if nov > 0 then
@@ -291,7 +296,9 @@ function ChangeFreqs()
   end
 end
 
-do_every_frame("ChangeFreqs()")
+if IsOctaviConnected then
+  do_every_frame("ChangeFreqs()")
+end
 
 local last_active_ap_leds = 0
 
@@ -303,4 +310,6 @@ function ChangeLeds()
   end
 end
 
-do_every_frame("ChangeLeds()")
+if IsOctaviConnected then
+  do_every_frame("ChangeLeds()")
+end

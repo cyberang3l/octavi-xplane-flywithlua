@@ -2,6 +2,7 @@ VENDOR_ID = 0x04d8
 DEVICE_ID = 0xe6d6
 
 FunctionID = {
+  INIT = -1, -- No real state - set only when the script is initializing the active function
   COM1 = 0, -- Primary state
   COM2 = 1, -- Primary state
   NAV1 = 2, -- Primary state
@@ -18,6 +19,7 @@ FunctionID = {
 }
 
 FunctionStrings = {
+  [FunctionID.INIT] = "INIT",
   [FunctionID.COM1] = "COM1",
   [FunctionID.COM2] = "COM2",
   [FunctionID.NAV1] = "NAV1",
