@@ -33,10 +33,27 @@ while True:
             read_bytes, "big")), print_split=8, bits_to_show=64)
         val.print_all()
 
-    # # If you want to test turning on/off different led, use the following
-    # # code to write to the HID device:
-    # import time
+    # # 2nd value controls the LEDs at the bottom of the device
+    # # 3rd and 5th byte can write values that change the knob readings.
+    # # Technically, every time we write a value to these bytes, the next
+    # # time we read the input we get the different from the value the byte
+    # # contained before we write.
+    # #
+    # # # If you want to test turning on/off different led, use the following
+    # # # code to write to the HID device:
+    # # import time
     # for i in range(0, 2**6 + 1):
-    #     print(i)
-    #     device.write(i.to_bytes(2, "big"))
+    #     leds = hex(i).replace('0x', '').zfill(2)
+    #     small_knob = hex(random.randint(0, 255)).replace('0x', '').zfill(2)
+    #     large_knob = hex(random.randint(0, 255)).replace('0x', '').zfill(2)
+
+    #     val = f"0x00{leds}{small_knob}00{small_knob}000000"
+    #     print(f"writing {val} to device")
+    #     bytes_to_write = int(val, 16).to_bytes(8, "big")
+    #     device.write(bytes_to_write)
+    #     read_bytes = device.read(length=8, timeout_ms=1000, blocking=True)
+    #     if read_bytes:
+    #         val = to_bin.HexBinDecPrinter(raw_value=str(int.from_bytes(
+    #             read_bytes, "big")), print_split=8, bits_to_show=64)
+    #         val.print_all()
     #     time.sleep(0.1)
