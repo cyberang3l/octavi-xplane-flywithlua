@@ -45,6 +45,10 @@ if first_HID_dev == nil then
 else
   IsOctaviConnected = true
   hid_set_nonblocking(first_HID_dev, 1)
+  -- Write 8 bytes to the device to trigger an interrupt and update the state
+  -- Seems like the 0x00000000000000ff sequence triggers a consistent interrupt
+  -- without messing with any bits
+  hid_write(first_HID_dev, 0, 0, 0, 0, 0, 0, 0, 255)
 end
 
 function ChangeFreqs()
