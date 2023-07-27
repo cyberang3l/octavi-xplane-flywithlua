@@ -55,3 +55,10 @@ function HasValue(table, val)
 
   return false
 end
+
+function Round(num)
+  if num % 1 >= 0.5 then
+    return math.ceil(num)
+  end
+  return math.floor(num)
+end

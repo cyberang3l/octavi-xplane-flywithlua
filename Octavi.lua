@@ -30,6 +30,7 @@ ActiveFunction = FunctionID.INIT
 IsPrimaryMode = true
 local bytes_to_read = 8
 local last_buttons = ButtonsInit
+CurrentActiveButtons = ButtonsInit
 
 -- find USB HID device based on vid/pid
 local first_HID_dev = nil
@@ -75,6 +76,7 @@ function ChangeFreqs()
     assert(b0 == 0x0b, "The first byte didn't return the expected 0x0b value")
     ActiveFunction, _, IsPrimaryMode = ActivateFunction(b7, b2, IsPrimaryMode)
     local buttons = GetButtonsPressed(b1, b2, b3, b5, b6)
+    CurrentActiveButtons = buttons
     -- print(nov)
     -- print(G430_NCS[0])
     -- convert encoder differentials to signed int 8
@@ -305,12 +307,13 @@ if IsOctaviConnected then
 end
 
 local last_active_ap_leds = 0
+ActiveAPLeds = 0
 
 function ChangeLeds()
-  local active_ap_leds = GetLEDActivationValue(AP_STATE[0], APPROACH_STATUS)
-  if active_ap_leds ~= last_active_ap_leds then
-    hid_write(first_HID_dev, 11, active_ap_leds)
-    last_active_ap_leds = active_ap_leds
+  ActiveAPLeds = GetLEDActivationValue(AP_STATE[0], APPROACH_STATUS)
+  if ActiveAPLeds ~= last_active_ap_leds then
+    hid_write(first_HID_dev, 11, ActiveAPLeds)
+    last_active_ap_leds = ActiveAPLeds
   end
 end
 

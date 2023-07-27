@@ -24,26 +24,6 @@ function ActivateFunction(b7, b2, prev_is_primary)
   return active_function, active_function_button, is_primary
 end
 
---- Do not modify the ButtonsInit table - everything should be false here
-ButtonsInit = {
-  SHIFT = false,
-  KNOB = false,
-  AP = false,
-  HDG = false,
-  NAV = false,
-  APR = false,
-  ALT = false,
-  VS = false,
-  D = false,
-  MENU = false,
-  CLR = false,
-  ENT = false,
-  L_KNOB_ROTATE_RIGHT = false,
-  L_KNOB_ROTATE_LEFT = false,
-  S_KNOB_ROTATE_RIGHT = false,
-  S_KNOB_ROTATE_LEFT = false,
-}
-
 --- @param b1 number -- value of byte 1
 --- @param b2 number -- value of byte 2
 --- @param b3 number -- value of byte 3
@@ -114,6 +94,17 @@ function GetOctaviFunctionString(func)
   local ret = FunctionStrings[func]
   if ret == nil then
     return "UNKNOWN_FUNCTION"
+  end
+  return ret
+end
+
+--- @returns a button string from a button ID, or "UNKN"
+--           if the button ID is not known
+--- @param btn number -- a ButtonID number
+function GetOctaviButtonString(btn)
+  local ret = ButtonStrings[btn]
+  if ret == nil then
+    return "UNKN"
   end
   return ret
 end
