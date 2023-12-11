@@ -36,10 +36,10 @@ while True:
     # # 2nd value controls the LEDs at the bottom of the device
     # # 3rd and 5th byte can write values that change the knob readings.
     # # Technically, every time we write a value to these bytes, the next
-    # # time we read the input we get the different from the value the byte
+    # # time we read the input we get the difference from the value the byte
     # # contained before we write.
     # #
-    # # # If you want to test turning on/off different led, use the following
+    # # # If you want to test turning on/off different leds, use the following
     # # # code to write to the HID device:
     # # import time
     # for i in range(0, 2**6 + 1):

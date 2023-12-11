@@ -47,13 +47,15 @@ else
   IsOctaviConnected = true
   hid_set_nonblocking(first_HID_dev, 1)
   -- Write 8 bytes to the device to trigger an interrupt and update the state
-  -- Seems like the 0x00000000000000ff sequence triggers a consistent interrupt
+  -- Seems like the 0x00000000000000ff sequence consistently triggers an interrupt
   -- without messing with any bits
   hid_write(first_HID_dev, 0, 0, 0, 0, 0, 0, 0, 255)
 end
 
 function ChangeFreqs()
-  --[[ USB Report Structure:
+  --[[
+
+  USB Report Structure:
   Byte order: big endian
 
   VAR/BYTE    DESC
@@ -64,8 +66,7 @@ function ChangeFreqs()
   b6          Small knob (fine)
   b7          State
 
-  ]]
-  --
+  --]]
   local nov, b0, b1, b2, b3, b4, b5, b6, b7 = 0, 0, 0, 0, 0, 0, 0, 0, 0
   if IsOctaviConnected then
     nov, b0, b1, b2, b3, b4, b5, b6, b7 = hid_read(first_HID_dev, bytes_to_read)
