@@ -1,6 +1,6 @@
 # octavi-xplane-flywithlua
 
-An X-PLANE FlyWithLua script for Octavi, with visual feedback that shows:
+An unofficial X-PLANE FlyWithLua script for Linux and the Octavi IFR pad. The plugin provides visual feedback (mostly useful when playing in VR) that shows:
 
 1. If Octavi is operated on primary (COM1, COM2, NAV1, NAV2, FMS1, FMS2, AP, XPDR) or secondary (HDG, BARO, CRS1, CRS2, FMS1, FMS2, AP, MODE) mode
 2. Button presses highlight the corresponding buttons that are pressed on the device
