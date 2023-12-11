@@ -5,6 +5,7 @@ dofile(SCRIPT_DIRECTORY .. "Octavi.lua")
 
 local info_string = "Octavi Info"
 OctaviInfoActive = true
+OctaviVisualFeedbackActive = false
 ActiveFunctionString = "UNKNOWN"
 
 function OctaviInfoEventHandler()
@@ -30,12 +31,33 @@ local base_sbutton_h = 5
 local base_lbutton_w = 13
 local base_lbutton_h = 7
 local base_windows_size_multiplier = 5
-wnd = float_wnd_create(base_dev_w * base_windows_size_multiplier, base_dev_h * base_windows_size_multiplier, 1, true)
-float_wnd_set_position(wnd, 100, 1000)
-float_wnd_set_title(wnd, "Octavi visual feedback")
-float_wnd_set_imgui_builder(wnd, "build_octavi_wnd")
-float_wnd_set_onclose(wnd, "closed_octavi_info")
 
+wnd = nil
+function ShowVisualInfo()
+  if not wnd then
+    wnd =
+      float_wnd_create(base_dev_w * base_windows_size_multiplier, base_dev_h * base_windows_size_multiplier, 1, true)
+    if float_wnd_is_vr(wnd) then
+      float_wnd_set_positioning_mode(wnd, 5, -1)
+      -- reduce the window size multiplier in vr! Otherwise the window shows too large
+      base_windows_size_multiplier = 3
+      float_wnd_set_geometry(wnd, base_dev_w * base_windows_size_multiplier, base_dev_h * base_windows_size_multiplier)
+    end
+    float_wnd_set_position(wnd, 100, 1000)
+    float_wnd_set_title(wnd, "Octavi visual feedback")
+    float_wnd_set_imgui_builder(wnd, "build_octavi_wnd")
+    float_wnd_set_onclose(wnd, "closed_octavi_info")
+  end
+  OctaviVisualFeedbackActive = true
+end
+
+function HideVisualInfo()
+  if wnd then
+    float_wnd_destroy(wnd)
+    wnd = nil
+  end
+  OctaviVisualFeedbackActive = false
+end
 local function drawButton(cntx, base_w, base_h, scale_factor, button_def)
   local w = Round(base_w * scale_factor)
   local h = Round(base_h * scale_factor)
@@ -97,7 +119,10 @@ local function drawKnobRotate(cntx, scale_factor, direction, color)
   end
 end
 
+local t_now = -1
+
 function build_octavi_wnd(wnd, x, y)
+  t_now = os.clock()
   local device_width_height_ratio = base_dev_w / base_dev_h
   local win_width = imgui.GetWindowWidth()
   local win_height = imgui.GetWindowHeight()
@@ -345,14 +370,24 @@ function build_octavi_wnd(wnd, x, y)
     r = 10,
     color = btn_color - 0x55555555,
   }
-  if CurrentActiveButtons.L_KNOB_ROTATE_RIGHT or CurrentActiveButtons.S_KNOB_ROTATE_RIGHT then
+  if t_now - KnobLastTriggeredTime > 2 then
+    -- Only show the knob rotation arrows for a max of 2 seconds
+    KnobLastTriggeredTime = -1
+  end
+  if
+    (CurrentActiveButtons.L_KNOB_ROTATE_RIGHT or CurrentActiveButtons.S_KNOB_ROTATE_RIGHT)
+    and KnobLastTriggeredTime ~= -1
+  then
     drawKnobRotate(imgui, scale_factor, "right", rotate_color)
     if CurrentActiveButtons.L_KNOB_ROTATE_RIGHT then
       L_KNOB_BTN.color = rotate_color
     elseif CurrentActiveButtons.S_KNOB_ROTATE_RIGHT then
       S_KNOB_BTN.color = rotate_color
     end
-  elseif CurrentActiveButtons.L_KNOB_ROTATE_LEFT or CurrentActiveButtons.S_KNOB_ROTATE_LEFT then
+  elseif
+    (CurrentActiveButtons.L_KNOB_ROTATE_LEFT or CurrentActiveButtons.S_KNOB_ROTATE_LEFT)
+    and KnobLastTriggeredTime ~= -1
+  then
     drawKnobRotate(imgui, scale_factor, "left", rotate_color)
     if CurrentActiveButtons.L_KNOB_ROTATE_LEFT then
       L_KNOB_BTN.color = rotate_color
@@ -368,6 +403,7 @@ function closed_octavi_info(wnd)
   local _ = wnd -- Reference to window, which triggered the call.
   -- This function is called when the user closes the window. Drawing or calling imgui
   --     -- functions is not allowed in this function as the window is already destroyed.
+  HideVisualInfo()
 end
 
 function DrawOctaviState()
@@ -393,5 +429,15 @@ function DrawOctaviState()
   end
 end
 
+function ToggleOctaviVisualInfo()
+  if OctaviVisualFeedbackActive then
+    HideVisualInfo()
+  else
+    ShowVisualInfo()
+  end
+end
+
 do_every_draw("DrawOctaviState()")
-add_macro("Show Octavi Info", "OctaviInfoActive = true", "OctaviInfoActive = false", "activate")
+add_macro("Show Octavi Text Info", "OctaviInfoActive = true", "OctaviInfoActive = false", "activate")
+add_macro("Toggle Octavi Visual Info", "ToggleOctaviVisualInfo()")
+create_command("FlyWithLua/octavi/show_toggle", "Toggle Octavi Visual Info", "ToggleOctaviVisualInfo()", "", "")

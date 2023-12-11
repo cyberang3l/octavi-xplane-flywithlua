@@ -25,6 +25,7 @@ local function calc_new_xpdr_code(code, incr_coarse, incr_fine)
   return DecToOct(dec_code)
 end
 
+KnobLastTriggeredTime = -1
 IsOctaviConnected = false
 ActiveFunction = FunctionID.INIT
 IsPrimaryMode = true
@@ -85,14 +86,22 @@ function ChangeFreqs()
     local small_inc = 0
 
     if buttons.L_KNOB_ROTATE_RIGHT then
+      -- Record the time we last rotated the knob
+      KnobLastTriggeredTime = os.clock()
       large_inc = 1
     elseif buttons.L_KNOB_ROTATE_LEFT then
+      -- Record the time we last rotated the knob
+      KnobLastTriggeredTime = os.clock()
       large_inc = -1
     end
 
     if buttons.S_KNOB_ROTATE_RIGHT then
+      -- Record the time we last rotated the knob
+      KnobLastTriggeredTime = os.clock()
       small_inc = 1
     elseif buttons.S_KNOB_ROTATE_LEFT then
+      -- Record the time we last rotated the knob
+      KnobLastTriggeredTime = os.clock()
       small_inc = -1
     end
 
