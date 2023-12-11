@@ -1,3 +1,4 @@
+-- https://github.com/cyberang3l/octavi-xplane-flywithlua
 dofile(SCRIPT_DIRECTORY .. "octavilib/OctaviDefinitions.lua")
 dofile(SCRIPT_DIRECTORY .. "octavilib/OctaviDatarefs.lua")
 dofile(SCRIPT_DIRECTORY .. "octavilib/OctaviHelperFuncs.lua")

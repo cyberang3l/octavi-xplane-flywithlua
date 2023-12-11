@@ -1,3 +1,4 @@
+-- https://github.com/cyberang3l/octavi-xplane-flywithlua
 local script_path = debug.getinfo(1, "S").source:match("@(.*/)")
 dofile(script_path .. "OctaviDefinitions.lua")
 dofile(script_path .. "OctaviHelperFuncs.lua")

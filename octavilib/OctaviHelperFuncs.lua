@@ -1,4 +1,4 @@
--- http://lua-users.org/wiki/BitwiseOperators
+-- https://github.com/cyberang3l/octavi-xplane-flywithlua
 --- @param bit_index number
 function Bit(bit_index)
   return 2 ^ bit_index -- 0-based indexing

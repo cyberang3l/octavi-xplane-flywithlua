@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# https://github.com/cyberang3l/octavi-xplane-flywithlua
 
 import hidapi
 import importlib

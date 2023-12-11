@@ -1,4 +1,6 @@
 #!/bin/bash
+# https://github.com/cyberang3l/octavi-xplane-flywithlua
+#
 # Exit on error
 set -e
 

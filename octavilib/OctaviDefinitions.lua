@@ -1,3 +1,4 @@
+-- https://github.com/cyberang3l/octavi-xplane-flywithlua
 VENDOR_ID = 0x04d8
 DEVICE_ID = 0xe6d6
 

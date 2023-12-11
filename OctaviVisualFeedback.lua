@@ -1,3 +1,4 @@
+-- https://github.com/cyberang3l/octavi-xplane-flywithlua
 require("graphics")
 dofile(SCRIPT_DIRECTORY .. "octavilib/OctaviMainFuncs.lua")
 dofile(SCRIPT_DIRECTORY .. "octavilib/OctaviHelperFuncs.lua")
