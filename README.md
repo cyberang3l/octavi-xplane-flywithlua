@@ -11,6 +11,13 @@ The visual feedback functionality is particularly useful when flying in VR
 
 Note that the plugin only fully supports the Cessna 172 with the analog cockpit, as this is the plane I mainly fly with.
 
+Some screenshots and video demonstration follows:
+
+[![3](https://img.youtube.com/vi/gTOLRPJOfcE/0.jpg)](https://www.youtube.com/watch?v=gTOLRPJOfcE)
+![1](https://github.com/cyberang3l/octavi-xplane-flywithlua/assets/5658474/d685bc0a-825d-48bb-9901-2d1472cc8bc1)
+![2](https://github.com/cyberang3l/octavi-xplane-flywithlua/assets/5658474/0c00669b-e192-4c00-888e-a9f13d2cbf89)
+![0](https://github.com/cyberang3l/octavi-xplane-flywithlua/assets/5658474/2cea71b6-2d2b-4954-8f1c-473fee18b07f)
+
 ## How to use on Linux (the only tested platform)
 
 1. Make sure the Octavi device is recognised by your system. I use the `lsusb` command for this. Expect to find the following device (notice the ID `04d8:e6d6`) in the command's output:
